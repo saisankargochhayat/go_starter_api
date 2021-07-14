@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: starter-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: starter-project
+  template:
+    metadata:
+      labels:
+        app: starter-project
+    spec:
+      containers:
+      - name: starter-project
+        image: saitest.azurecr.io/sai/starter_project:v1
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: starter-project
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8080
+  selector:
+    app: starter-project
